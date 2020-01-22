@@ -1,0 +1,30 @@
+{
+  "name": "text",
+  "version": "0.0.0",
+  "description": "interactive text rendering sandbox",
+  "author": "semibran (Brandon Semilla)",
+  "repository": "semibran/text",
+  "license": "MIT",
+  "main": "src/index.js",
+  "keywords": [],
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^6.0.0",
+    "autoprefixer": "^9.7.4",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "clean-css-cli": "^4.3.0",
+    "gh-pages": "^2.2.0",
+    "html-minifier": "^4.0.0",
+    "img-extract": "^1.0.0",
+    "img-load": "^2.0.0",
+    "jimp": "^0.9.3",
+    "key-state": "^1.0.1",
+    "node-sass": "^4.13.1",
+    "pack": "^2.2.0",
+    "postcss-cli": "^7.1.0",
+    "rollup": "^1.29.0",
+    "uglify-js": "^3.7.5"
+  }
+}
