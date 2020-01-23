@@ -1,4 +1,5 @@
 import Canvas from "../lib/canvas"
+import * as palette from "./sprites/colors"
 
 export function create(width, height, sprites) {
 	let view = {
@@ -35,7 +36,7 @@ export function render(view, state) {
 	let viewport = Canvas(view.width, view.height)
 	let a = view.sprites.fonts.normal("Hector received 2 damage.")
 	let b = view.sprites.fonts.bold("Soldier, Bandit, Knight")
-	let c = view.sprites.fonts.smallcaps("SYSTEM . TUTORIAL")
+	let c = view.sprites.fonts.smallcaps("SYSTEM . TUTORIAL", palette.red)
 	viewport.drawImage(a, 0, 0)
 	viewport.drawImage(b, 0, a.height + 1)
 	viewport.drawImage(c, 0, a.height + 1 + b.height + 1)

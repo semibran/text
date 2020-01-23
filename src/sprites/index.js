@@ -3,6 +3,7 @@ import disassemble from "../../lib/disassemble"
 import extract from "img-extract"
 import Canvas from "../../lib/canvas"
 import fonts from "../fonts"
+import * as pixels from "../../lib/pixels"
 import * as palette from "./colors"
 
 export default function normalize(spritesheet) {
@@ -21,7 +22,7 @@ function makeCharmap(image, props, color) {
 	let cols = image.width / props.cellsize.width
 	let rows = image.height / props.cellsize.height
 	if (color) {
-		image = pixels.replace(image, palette.white, color)
+		image = pixels.toImage(pixels.replace(pixels.fromImage(image), palette.white, color))
 	}
 	for (let y = 0; y < rows; y++) {
 		for (let x = 0; x < cols; x++) {
