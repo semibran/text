@@ -3,6 +3,7 @@ import disassemble from "../../lib/disassemble"
 import extract from "img-extract"
 import Canvas from "../../lib/canvas"
 import fonts from "../fonts"
+import * as palette from "./colors"
 
 export default function normalize(spritesheet) {
 	let images = disassemble(spritesheet, sourcemap)
@@ -15,10 +16,13 @@ export default function normalize(spritesheet) {
 	return sprites
 }
 
-function Font(image, props) {
+function makeCharmap(image, props, color) {
 	let charmap = {}
 	let cols = image.width / props.cellsize.width
 	let rows = image.height / props.cellsize.height
+	if (color) {
+		image = pixels.replace(image, palette.white, color)
+	}
 	for (let y = 0; y < rows; y++) {
 		for (let x = 0; x < cols; x++) {
 			let char = props.layout[y][x]
@@ -34,7 +38,18 @@ function Font(image, props) {
 			charmap[char] = extract(image, x * props.cellsize.width, y * props.cellsize.height, size.width, size.height)
 		}
 	}
+	return charmap
+}
+
+function Font(image, props) {
+	let colormap = {
+		[palette.white]: makeCharmap(image, props)
+	}
 	return function Text(content, color) {
+		let charmap = colormap[color]
+		if (!charmap) {
+			charmap = colormap[color] = makeCharmap(image, props, color)
+		}
 		let width = 0
 		let height = 0
 		for (let i = 0; i < content.length; i++) {

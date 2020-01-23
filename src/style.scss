@@ -7,3 +7,12 @@
 html, body {
 	height: 100%;
 }
+
+body {
+	overflow: hidden;
+}
+
+canvas {
+	image-rendering: pixelated;
+	transform-origin: top left;
+}
