@@ -65,8 +65,10 @@ function Font(image, props) {
 			let image = charmap[char]
 			if (!image) image = charmap[char.toUpperCase()]
 			if (!image) continue
-			text.drawImage(image, x, 0)
-			x += image.width + props.kerning
+			let offsets = props.exceptions[char]
+			let offset = offsets ? offsets.x || 0 : 0
+			text.drawImage(image, x + offset, 0)
+			x += image.width + props.kerning + offset
 		}
 		return text.canvas
 	}

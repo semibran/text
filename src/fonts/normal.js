@@ -17,7 +17,11 @@ export default {
 		q: { height: 9 },
 		t: { width: 3 },
 		w: { width: 7 },
-		y: { height: 9 }
+		y: { height: 9 },
+		",": { width: 1, height: 8 },
+		".": { width: 1 },
+		"!": { width: 1 },
+		"?": { width: 5 }
 	},
 	kerning: 1, // char spacing
 	space: 2,   // word spacing
@@ -25,7 +29,7 @@ export default {
 		"0123456789",
 		"ABCDEFGHIJ",
 		"KLMNOPQRST",
-		"UVWXYZ",
+		"UVWXYZ,.!?",
 		"abcdefghij",
 		"klmnopqrst",
 		"uvwxyz"

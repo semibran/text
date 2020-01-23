@@ -6,7 +6,7 @@ loadImage("sprites.png").then(main)
 
 function main(spritesheet) {
 	let sprites = normalize(spritesheet)
-	let view = View.create(sprites)
+	let view = View.create(160, 284, sprites)
 	View.render(view)
 	document.body.appendChild(view.element)
 }
