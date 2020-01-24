@@ -10,9 +10,11 @@ export default {
 		"!": { width: 2 },
 		"?": { width: 6 }
 	},
-	kerning: 1, // char spacing
-	space: 4,   // word spacing
-
+	spacing: {
+		char: 1,
+		word: 4,
+		line: 2
+	},
 	layout: [
 		"0123456789",
 		"ABCDEFGHIJ",
