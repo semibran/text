@@ -71,7 +71,9 @@ export function render(view, state) {
 	let message = state.messages[view.state.text.index]
 	let t = view.state.time - view.state.text.time
 	let d = length(message)
-	if (t < d && !view.state.text.waiting) {
+	if (!t) {
+		message = []
+	} else if (t < d && !view.state.text.waiting) {
 		message = slice(message, 0, t)
 	} else if (!view.state.text.waiting) {
 		view.state.text.waiting = true
