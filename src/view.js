@@ -1,5 +1,5 @@
 import Canvas from "../lib/canvas"
-import renderTextBox from "./view/textbox"
+import renderDialogueBox from "./view/dialoguebox"
 import * as colors from "./view/colors"
 import * as pixels from "../lib/pixels"
 import * as Message from "./message"
@@ -45,6 +45,6 @@ export function render(view, state) {
 	context.drawImage(c, 0, a.height + 1 + b.height + 1)
 
 	let message = Message.format(Message.gray)`The goal for this map is to ${ Message.red("defeat all enemy units") }.`
-	let textbox = renderTextBox(message, fonts.normal, canvas.width - 6, 2)
+	let textbox = renderDialogueBox(message, "System", view.sprites, canvas.width - 6)
 	context.drawImage(textbox, 3, canvas.height - textbox.height - 3)
 }

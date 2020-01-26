@@ -1,6 +1,5 @@
 import splitMessage from "./split"
 import makeCharmap from "../view/charmap"
-import findTextWidth from "../view/textwidth"
 import Canvas from "../../lib/canvas"
 
 // render a message. ultimately whether this
@@ -50,4 +49,25 @@ function renderLine(message, font, width) {
 		}
 	}
 	return text.canvas
+}
+
+export function findTextWidth(message, font) {
+	let width = 0
+	for (let token of message) {
+		for (let char of token.text) {
+			if (char === " ") {
+				width += font.data.spacing.word
+				continue
+			}
+			let cache = font.cache.default
+			let image = cache[char]
+			if (!image) image = cache[char.toUpperCase()]
+			if (!image) continue
+			width += image.width + font.data.spacing.char
+		}
+	}
+	if (width) {
+		width -= font.data.spacing.char
+	}
+	return width
 }
