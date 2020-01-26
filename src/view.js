@@ -2,14 +2,16 @@ import Canvas from "../lib/canvas"
 import renderDialogueBox from "./view/dialoguebox"
 import * as colors from "./view/colors"
 import * as pixels from "../lib/pixels"
-import * as Message from "./message"
+import { format, slice, length, render as renderMessage } from "./message"
+import { red, blue, gray, charcoal } from "./message/colors"
 
 export function create(width, height, sprites) {
 	let view = {
 		native: { width, height },
 		scale: 1,
 		sprites: sprites,
-		element: document.createElement("canvas")
+		element: document.createElement("canvas"),
+		time: 0
 	}
 
 	function resize() {
@@ -27,6 +29,10 @@ export function create(width, height, sprites) {
 	return view
 }
 
+export function update(view) {
+	view.time++
+}
+
 export function render(view, state) {
 	let fonts = view.sprites.fonts
 	let canvas = view.element
@@ -37,14 +43,26 @@ export function render(view, state) {
 	context.fillStyle = "black"
 	context.fillRect(0, 0, canvas.width, canvas.height)
 
-	let a = Message.render(Message.format()`Hector received ${ Message.red("2 damage") }.`, fonts.normal)
-	let b = Message.render(Message.format()`Soldier, Knight, Bandit`, fonts.bold)
-	let c = Message.render(Message.format()`SYSTEM TUTORIAL`, fonts.smallcaps)
-	context.drawImage(a, 0, 0)
-	context.drawImage(b, 0, a.height + 1)
-	context.drawImage(c, 0, a.height + 1 + b.height + 1)
-
-	let message = Message.format(Message.gray)`The goal for this map is to ${ Message.red("defeat all enemy units") }.`
-	let textbox = renderDialogueBox(message, "System", view.sprites, canvas.width - 6)
-	context.drawImage(textbox, 3, canvas.height - textbox.height - 3)
+	const margin = 4
+	let width = canvas.width > 160 ? canvas.width * 0.75 : canvas.width
+	let message = format(gray)`In ${ blue("Taciturn") }, you use ${ charcoal("units") } to complete map objectives.`
+	if (view.time) {
+		let t = view.time
+		let d = length(message)
+		let time = Math.min(d, t)
+		let textbox = renderDialogueBox(slice(message, 0, time), "System", view.sprites, width - margin * 2).getContext("2d")
+		if (t >= d) {
+			let arrow = view.sprites.arrow
+			let p = (d - t) % 30 / 30
+			let o = Math.round(Math.cos(Math.PI * 2 * p))
+			let x = textbox.canvas.width - arrow.width - 10
+			let y = textbox.canvas.height - arrow.height - 10
+			textbox.globalAlpha = 0.25
+			textbox.drawImage(arrow, x + 1, y + o + 1)
+			textbox.drawImage(arrow, x, y + o + 1)
+			textbox.globalAlpha = 1
+			textbox.drawImage(arrow, x, y + o)
+		}
+		context.drawImage(textbox.canvas, canvas.width / 2 - width / 2 + margin, canvas.height - textbox.canvas.height - margin)
+	}
 }

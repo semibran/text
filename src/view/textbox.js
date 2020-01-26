@@ -1,8 +1,8 @@
 import renderBox from "./box"
 import { render as renderMessage } from "../message"
 
-const paddingX = 11
-const paddingY = 9
+const paddingX = 10
+const paddingY = 10
 
 export default function renderTextBox(message, font, width, rows) {
   let baseline = (font.data.cellsize.height - font.data.charsize.height)

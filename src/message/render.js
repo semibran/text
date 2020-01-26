@@ -44,8 +44,9 @@ function renderLine(message, font, width) {
 			let image = cache[char]
 			if (!image) image = cache[char.toUpperCase()]
 			if (!image) continue
+			let exception = font.data.exceptions[char]
 			text.drawImage(image, x, 0)
-			x += image.width + font.data.spacing.char
+			x += image.width + font.data.spacing.char + (exception && exception.offset || 0)
 		}
 	}
 	return text.canvas
@@ -63,7 +64,8 @@ export function findTextWidth(message, font) {
 			let image = cache[char]
 			if (!image) image = cache[char.toUpperCase()]
 			if (!image) continue
-			width += image.width + font.data.spacing.char
+			let exception = font.data.exceptions[char]
+			width += image.width + font.data.spacing.char + (exception && exception.offset || 0)
 		}
 	}
 	if (width) {

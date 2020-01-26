@@ -9,4 +9,11 @@ function main(spritesheet) {
 	let view = View.create(160, 160, sprites)
 	View.render(view)
 	document.body.appendChild(view.element)
+	requestAnimationFrame(loop)
+
+	function loop() {
+		View.render(view)
+		View.update(view)
+		requestAnimationFrame(loop)
+	}
 }

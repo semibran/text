@@ -12,6 +12,6 @@ export default function renderDialogueBox(message, speaker, sprites, width) {
 
   let dialoguebox = Canvas(textbox.width, textbox.height + box.canvas.height - 3)
   dialoguebox.drawImage(textbox, 0, dialoguebox.canvas.height - textbox.height)
-  dialoguebox.drawImage(box.canvas, 11, 0)
+  dialoguebox.drawImage(box.canvas, 10, 0)
   return dialoguebox.canvas
 }

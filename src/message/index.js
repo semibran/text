@@ -40,6 +40,9 @@ export function slice(tokens, start, end) {
     return [ { text: "", color: null } ]
   }
   let pos = at(tokens, start)
+	if (!pos) {
+    return [ { text: "", color: null } ]
+  }
   let slice = []
   for (let i = pos.token; i < tokens.length; i++) {
     let token = { text: "", color: tokens[i].color }

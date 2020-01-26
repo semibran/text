@@ -19,7 +19,8 @@ export default function splitMessage(message, font, width) {
         let image = cache[char]
         if (!image) image = cache[char.toUpperCase()]
         if (!image) continue
-        next += image.width + font.data.spacing.char
+        let exception = font.data.exceptions[char]
+        next += image.width + font.data.spacing.char + (exception && exception.offset || 0)
       }
 
       if (next <= width) {
@@ -37,12 +38,15 @@ export default function splitMessage(message, font, width) {
           line = slice(message, split, split + 1)
           split = i + 1
         }
+        lines.push(line)
         i = split
         let pos = at(message, i)
+        if (!pos) {
+          break
+        }
         t = pos.token
         c = pos.index
         x = 0
-        lines.push(line)
       }
       i++
     }
