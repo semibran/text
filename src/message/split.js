@@ -22,7 +22,7 @@ export default function splitMessage(message, font, width) {
         let exception = font.data.exceptions[char]
         next += image.width + font.data.spacing.char + (exception && exception.offset || 0)
       }
-
+      
       if (next <= width) {
         x = next // new char fits. add and proceed as normal
       } else { // projected width exceeds width threshold. inject newline
