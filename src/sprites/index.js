@@ -8,7 +8,7 @@ export default function normalize(spritesheet) {
 	let sprites = { fonts: {} }
 	for (let id in fonts) {
 		let data = fonts[id]
-		let image = images[id]
+		let image = images[data.name]
 		sprites.fonts[id] = Font(image, data)
 	}
 	return sprites

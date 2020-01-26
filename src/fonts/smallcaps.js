@@ -1,18 +1,15 @@
 export default {
 	name: "smallcaps",
-	cellsize: { width: 7, height: 5 },
-	charsize: { width: 6, height: 5 },
+	cellsize: { width: 5, height: 5 },
+	charsize: { width: 5, height: 5 },
 	exceptions: {
-		M: { width: 7 },
-		W: { width: 7 },
-		",": { width: 2 },
-		".": { width: 2 },
-		"!": { width: 2 },
-		"?": { width: 6 }
+		",": { width: 1 },
+		".": { width: 1 },
+		"!": { width: 1 }
 	},
 	spacing: {
 		char: 1,
-		word: 4,
+		word: 3,
 		line: 2
 	},
 	layout: [

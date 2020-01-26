@@ -6,7 +6,7 @@ import * as colors from "./colors"
 
 export default function renderDialogueBox(message, speaker, sprites, width) {
   let textbox = renderTextBox(message, sprites.fonts.normal, width, 2)
-  let label = renderText(speaker, sprites.fonts.smallcaps)
+  let label = renderText(speaker, sprites.fonts.smallcapsBold)
   let box = renderBox(label.width + 6, label.height + 6, colors.charcoal).getContext("2d")
   box.drawImage(label, 3, 3)
 
