@@ -26,7 +26,7 @@ export default {
 	spacing: {
 		char: 1,
 		word: 2,
-		line: 5
+		line: 7
 	},
 	layout: [
 		"0123456789",

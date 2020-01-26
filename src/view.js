@@ -1,5 +1,5 @@
 import Canvas from "../lib/canvas"
-import Box from "./view/box"
+import renderTextBox from "./view/textbox"
 import * as colors from "./view/colors"
 import * as pixels from "../lib/pixels"
 import * as Message from "./message"
@@ -37,21 +37,14 @@ export function render(view, state) {
 	context.fillStyle = "black"
 	context.fillRect(0, 0, canvas.width, canvas.height)
 
-	let a = Message.render(Message.format`Hector received ${ Message.red("2 damage") }.`, fonts.normal)
-	let b = Message.render(Message.format`Soldier, Knight, Bandit`, fonts.bold)
-	let c = Message.render(Message.format`SYSTEM TUTORIAL`, fonts.smallcaps)
+	let a = Message.render(Message.format()`Hector received ${ Message.red("2 damage") }.`, fonts.normal)
+	let b = Message.render(Message.format()`Soldier, Knight, Bandit`, fonts.bold)
+	let c = Message.render(Message.format()`SYSTEM TUTORIAL`, fonts.smallcaps)
 	context.drawImage(a, 0, 0)
 	context.drawImage(b, 0, a.height + 1)
 	context.drawImage(c, 0, a.height + 1 + b.height + 1)
 
-	let message = Message.format`${ Message.gray("The goal for this map is to ") }${ Message.red("defeat all enemy units") }${ Message.gray(".") }`
-	let text = Message.render(message, fonts.normal, canvas.width - 22 - 6)
-	let box = Box(canvas.width - 6, 39).getContext("2d")
-	box.globalAlpha = 0.25
-	box.drawImage(text, 12, 10)
-	box.drawImage(text, 12, 9)
-	box.drawImage(text, 11, 10)
-	box.globalAlpha = 1
-	box.drawImage(text, 11, 9)
-	context.drawImage(box.canvas, 3, canvas.height - box.canvas.height - 3)
+	let message = Message.format(Message.gray)`The goal for this map is to ${ Message.red("defeat all enemy units") }.`
+	let textbox = renderTextBox(message, fonts.normal, canvas.width - 6, 2)
+	context.drawImage(textbox, 3, canvas.height - textbox.height - 3)
 }

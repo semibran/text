@@ -1,18 +1,25 @@
 export { default as render } from "./render"
 export * from "./colors"
+import * as colors from "./colors"
 
-export function format(strings, ...tokens) {
-	if (!strings.length && tokens.length) {
-		return tokens
-	}
-	let result = []
-	for (let i = 0; i < strings.length; i++) {
-		result.push({ text: strings[i], color: null })
-		if (tokens[i]) {
-			result.push(tokens[i])
+export function format(color) {
+	return function format(strings, ...tokens) {
+		if (!strings.length && tokens.length) {
+			return tokens
 		}
+		let result = []
+		for (let i = 0; i < strings.length; i++) {
+			if (color) {
+				result.push(color(strings[i]))
+			} else {
+				result.push({ text: strings[i], color: null })
+			}
+			if (tokens[i]) {
+				result.push(tokens[i])
+			}
+		}
+		return result
 	}
-	return result
 }
 
 export function at(tokens, index) {

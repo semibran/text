@@ -1,5 +1,6 @@
 import splitMessage from "./split"
 import makeCharmap from "../view/charmap"
+import findTextWidth from "../view/textwidth"
 import Canvas from "../../lib/canvas"
 
 // render a message. ultimately whether this
@@ -11,11 +12,11 @@ export default function renderMessage(message, font, width) {
 		return renderLine(message, font, width)
 	}
 	let lines = splitMessage(message, font, width)
-	let height = font.data.cellsize.height * lines.length + font.data.spacing.line * (lines.length - 1)
+	let height = font.data.charsize.height * lines.length + font.data.spacing.line * (lines.length - 1) + (font.data.cellsize.height - font.data.charsize.height)
 	let text = Canvas(width, height)
 	for (let i = 0; i < lines.length; i++) {
 		let line = lines[i]
-		text.drawImage(renderLine(line, font, width), 0, i * (font.data.cellsize.height + font.data.spacing.line))
+		text.drawImage(renderLine(line, font, width), 0, i * (font.data.charsize.height + font.data.spacing.line))
 	}
 	return text.canvas
 }
@@ -30,7 +31,7 @@ function renderLine(message, font, width) {
 		}
 	}
 	if (!width) {
-		width = findWidth(message, font)
+		width = findTextWidth(message, font)
 	}
 	let text = Canvas(width, font.data.cellsize.height)
 	let x = 0
@@ -49,25 +50,4 @@ function renderLine(message, font, width) {
 		}
 	}
 	return text.canvas
-}
-
-function findWidth(message, font) {
-	let width = 0
-	for (let token of message) {
-		for (let char of token.text) {
-			if (char === " ") {
-				width += font.data.spacing.word
-				continue
-			}
-			let cache = font.cache.default
-			let image = cache[char]
-			if (!image) image = cache[char.toUpperCase()]
-			if (!image) continue
-			width += image.width + font.data.spacing.char
-		}
-	}
-	if (width) {
-		width -= font.data.spacing.char
-	}
-	return width
 }
