@@ -12,3 +12,8 @@ export default function Font(image, data) {
 		}
 	}
 }
+
+export function recolor(font, color) {
+  if (!font.cache[color]) font.cache[color] = makeCharmap(font.image, font.data, color)
+  return font.cache[color]
+}

@@ -10,7 +10,7 @@ export default {
 		f: { width: 4 },
 		g: { height: 9 },
 		i: { width: 1 },
-		j: { width: 3, height: 8 },
+		j: { width: 2, height: 8 },
 		k: { width: 4 },
 		l: { width: 1 },
 		m: { width: 7 },
